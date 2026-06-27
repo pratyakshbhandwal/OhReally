@@ -72,40 +72,62 @@ class LocalRanker:
             
             final_score = semantic_score * beh_multiplier * jd_multiplier
             
+            title = row.get('profile', {}).get('current_title', 'Unknown')
+            try:
+                yoe = float(row.get('profile', {}).get('years_of_experience', 0.0))
+            except:
+                yoe = 0.0
+                
+            try:
+                rr = float(row.get('redrob_signals', {}).get('recruiter_response_rate', 0.0))
+            except:
+                rr = 0.0
+                
+            skills = row.get('skills', [])
+            num_skills = len(skills) if isinstance(skills, list) else 0
+            
             reasons = []
             if is_keyword_stuffer(row): 
                 final_score *= 0.2
-                reasons.append("Flagged as keyword stuffer.")
+                reasons.append(f"an improbable {num_skills} skills listed")
             if is_unrelated_title(row): 
                 final_score *= 0.1
-                reasons.append("Current title completely unrelated to engineering.")
+                reasons.append(f"an unrelated title ({title})")
             if is_pure_consulting(row): 
                 final_score *= 0.5
-                reasons.append("Experience entirely in consulting firms.")
+                reasons.append("an entirely consulting-based career history")
             if is_title_chaser(row): 
                 final_score *= 0.6
-                reasons.append("High job turnover (title chaser).")
+                reasons.append("a high job turnover rate")
             if is_pure_research(row): 
                 final_score *= 0.7
-                reasons.append("Experience mostly in pure research/academia.")
+                reasons.append("a purely academic/research background")
             if is_langchain_enthusiast(row): 
                 final_score *= 0.6
-                reasons.append("Flagged as framework enthusiast without core ML depth.")
+                reasons.append("framework wrapper skills without core ML depth")
                 
             if is_honeypot(row):
                 continue
                 
-            # Construct final reasoning
+            # Construct final reasoning with high variance and specific facts
             if not reasons:
-                reasoning = f"Strong semantic match with solid JD alignment. "
-                if jd_multiplier > 1.5:
-                    reasoning += "Direct experience with Vector DBs and Ranking evaluation. "
-                if beh_multiplier > 1.2:
-                    reasoning += "Excellent logistics (location/notice) and engagement signals."
-                elif beh_multiplier < 0.8:
-                    reasoning += "Good skills but poor logistics/engagement signals."
+                skill_names = [s.get('name', '') for s in skills[:3]] if isinstance(skills, list) else []
+                skills_str = ", ".join(skill_names) if skill_names else "relevant data skills"
+                
+                parts = []
+                if jd_multiplier >= 1.3:
+                    parts.append(f"Exceptional JD match: {yoe} years as a {title} with explicit Vector DB or ranking evaluation experience.")
+                else:
+                    parts.append(f"Solid semantic alignment for a {title} bringing {yoe} years of experience and proficiency in {skills_str}.")
+                    
+                if beh_multiplier > 1.1:
+                    parts.append(f"Logistics are highly favorable (Response rate: {rr:.2f}).")
+                elif beh_multiplier < 0.9:
+                    parts.append(f"Engagement signals are slightly concerning (Response rate: {rr:.2f}).")
+                reasoning = " ".join(parts)
             else:
-                reasoning = " ".join(reasons)
+                penalty_str = " and ".join(reasons)
+                reasoning = f"Candidate is a {title} with {yoe} yrs experience, but was penalized for {penalty_str}. (Response rate: {rr:.2f})"
                 
             cand['final_score'] = final_score
             cand['reasoning'] = reasoning
