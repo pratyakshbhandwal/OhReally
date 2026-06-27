@@ -46,22 +46,19 @@ st.header("1. Job Description")
 default_jd = open("data/job_description.txt").read() if os.path.exists("data/job_description.txt") else ""
 job_description = st.text_area("Paste the Job Description here:", value=default_jd, height=300)
 
-top_k = st.slider("Number of top candidates to retrieve (Stage 1):", min_value=1, max_value=len(df), value=3)
-
 if st.button("Analyze & Rank Candidates", type="primary"):
     if not job_description.strip():
         st.error("Please enter a job description.")
     else:
         with st.spinner("🔍 Stage 1: Running Semantic Search to retrieve Top Candidates..."):
-            results = retriever.search(job_description, top_k=top_k)
+            # We use 10,000 to cast a wide net and bypass keyword-stuffer honeypots
+            results = retriever.search(job_description, top_k=10000)
             
             # Fetch candidates from the dataframe based on retrieved IDs
             retrieved_ids = results['ids'][0] # ChromaDB returns strings
             distances = results['distances'][0]
             
             shortlist_df = df[df['id'].astype(str).isin(retrieved_ids)]
-            
-            st.subheader(f"✅ Top {top_k} Semantically Matched Candidates")
             preferred_cols = ['name', 'current_role', 'skills', 'experience_years']
             display_cols = [col for col in preferred_cols if col in shortlist_df.columns]
             if not display_cols:
@@ -78,11 +75,14 @@ if st.button("Analyze & Rank Candidates", type="primary"):
             ranker = LocalRanker()
             ranked_candidates = ranker.rank_candidates(shortlist_dicts, cand_distances, job_description)
             
-            st.subheader("🏆 Final Output")
+            # Hackathon rule: Exactly 100 rows of data
+            top_100 = ranked_candidates[:100]
+            
+            st.subheader("🏆 Final Top 100 Candidates")
             
             output = []
             prev_score = float('inf')
-            for i, c in enumerate(ranked_candidates):
+            for i, c in enumerate(top_100):
                 raw_score = float(c.get('final_score', 0.0))
                 score = min(raw_score, prev_score)
                 prev_score = score
