@@ -32,20 +32,26 @@ def init_system(cand_path):
     return df, retriever
 
 uploaded_file = st.sidebar.file_uploader("Upload Candidates File (JSONL)", type=["jsonl", "json", "csv"])
+
+cand_path = None
 if uploaded_file is not None:
     import tempfile
     with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file.name) as tmp:
         tmp.write(uploaded_file.getvalue())
         cand_path = tmp.name
-else:
-    cand_path_jsonl = "data/candidates.jsonl"
-    cand_path_sample = "data/sample_candidates.json"
-    cand_path = cand_path_jsonl if os.path.exists(cand_path_jsonl) else cand_path_sample
+elif os.path.exists("data/candidates.jsonl"):
+    cand_path = "data/candidates.jsonl"
+elif os.path.exists("data/sample_candidates.json"):
+    cand_path = "data/sample_candidates.json"
+
+if not cand_path:
+    st.info("👋 Welcome to the Sandbox! Please upload a candidate JSON/JSONL file in the sidebar to begin.")
+    st.stop()
 
 try:
     df, retriever = init_system(cand_path)
 except Exception as e:
-    st.error(f"Please upload a candidates file to begin. ({e})")
+    st.error(f"Error loading file: {e}")
     st.stop()
 
 st.sidebar.header("Data Overview")
