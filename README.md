@@ -1,43 +1,58 @@
-# AI Recruiter - Redrob Hackathon Submission
-
-Welcome to our offline AI ranking system designed for the Redrob Intelligent Candidate Discovery Challenge! 
-
-This repository fulfills the Stage 3 (Code Reproduction) and Stage 1 (Sandbox) requirements. It is built to be extremely fast, strictly offline, and highly forensic in its ranking.
-
-## 🛠️ Step 1: Sandbox Demo (Streamlit)
-
-Want to see our AI dynamically catch traps and rank candidates in real-time?
-1. Open our Sandbox here: **[INSERT YOUR STREAMLIT CLOUD LINK HERE]**
-2. On the left sidebar, click **Upload Candidates File** and upload any `.jsonl` or `.json` file containing candidate profiles.
-3. Paste a Job Description in the main text box.
-4. Click **Analyze & Rank Candidates**. The app will bypass traps, rank the top 100, and give you a button to download the compliant `submission.csv`!
+<div align="center">
+  <h1>🚀 AI Recruiter</h1>
+  <h3>Redrob Intelligent Candidate Discovery Challenge</h3>
+  <p>An ultra-fast, offline-first semantic search & heuristic ranking engine designed to identify the top 100 AI Engineers out of 100,000+ candidates.</p>
+</div>
 
 ---
 
-## 💻 Step 2: Reproducing the Submission (CLI)
+## 🌟 Overview
 
-To reproduce the exact `submission.csv` on the full 100K dataset locally (Stage 3 Verification):
+This repository fulfills both the **Stage 1 (Sandbox)** and **Stage 3 (Code Reproduction)** requirements for the hackathon. It is engineered to be extremely fast (processing 100K profiles in seconds on a CPU), strictly offline (no hosted LLMs), and highly forensic in its ranking logic.
 
-1. **Install dependencies:**
+## 🎯 Key Features
+
+- **⚡ Blazing Fast Semantic Search:** Uses a local `all-MiniLM-L6-v2` Sentence Transformer and ChromaDB to instantly retrieve candidates.
+- **🛡️ Advanced Trap Detection:** Procedurally filters out honeypots, Civil Engineers keyword-stuffing AI skills, title-chasers, and framework wrappers.
+- **📊 Behavioral Heuristics:** Mathematically rewards responsive candidates and penalizes unavailable ones based on `redrob_signals`.
+- **🔎 Factual Reasoning:** Generates 100% varied, hallucination-free justifications by injecting real profile data (YoE, explicit skills) directly into the reasoning strings.
+
+---
+
+## 💻 1. Reproducing the Submission (CLI)
+*For Stage 3 Verification on the full 100K dataset.*
+
+**Step 1:** Clone the repository and install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. **Place the dataset:**
-Ensure the `candidates.jsonl` file is inside the `data/` folder.
+**Step 2:** Place your dataset:
+Drop the massive `candidates.jsonl` file directly into the `data/` folder.
 
-3. **Run the magic command:**
+**Step 3:** Run the Generation Script:
 Execute this single command from the root folder:
 ```bash
 python generate_submission.py --candidates ./data/candidates.jsonl --out ./submission.csv
 ```
+> **✅ Success:** In just a few seconds, the engine will bypass all traps, score the candidates, and generate a perfectly formatted `submission.csv` containing the strictly ranked Top 100 matches!
 
 ---
 
-## 🧠 How Our Algorithm Works
-We built a highly optimized, completely offline architecture to meet the strict 5-minute CPU constraint while outsmarting the honeypots.
+## 🛠️ 2. Sandbox Demo (Streamlit)
+*For an interactive UI that visually demonstrates the engine.*
 
-1. **Semantic Search:** We embed the JD and use a local `all-MiniLM-L6-v2` Sentence Transformer via ChromaDB to pull a massive net of 10,000 top semantic matches (bypassing keyword-stuffers).
-2. **Trap Forensics (`src/trap_detector.py`):** We procedurally filter out the hidden honeypots: Civil Engineers stuffed with AI skills, Title-Chasers (fast turnover), and Consulting-only profiles. 
-3. **Behavioral Heuristics (`src/local_ranker.py`):** We aggressively boost responsive candidates and mathematically penalize unavailable ones using the `redrob_signals`.
-4. **Factual Reasoning:** The output reasoning strings dynamically inject real data (years of experience, explicitly matched skills, etc.) directly from the candidate JSON, ensuring 0% hallucination and 100% varied justifications.
+Want to see our AI dynamically catch traps and rank candidates in real-time? 
+
+1. **Access the Live App:** 👉 **[Launch Streamlit Sandbox Here]** *(Replace with your live Streamlit Cloud link)*
+2. **Upload Data:** On the left sidebar, click **Upload Candidates File** and drag-and-drop your `.jsonl`, `.json`, or `.csv` candidate file.
+3. **Input the Role:** Paste your target Job Description into the main text box.
+4. **Rank:** Click **Analyze & Rank Candidates** to watch the AI engine work! 
+
+*(Note: You can also run the sandbox locally by executing `streamlit run app.py`)*
+
+---
+
+<div align="center">
+  <i>Built with ❤️ for the Redrob Hack2Skill Hackathon</i>
+</div>
