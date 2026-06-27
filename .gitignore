@@ -13,3 +13,4 @@ candidates.jsonl
 *.jsonl.gz
 team_*.csv
 submission.csv
+chroma_db/chroma.sqlite3

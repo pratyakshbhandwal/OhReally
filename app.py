@@ -25,9 +25,15 @@ if api_key:
 # Load Data
 @st.cache_resource
 def init_system():
-    cand_path_jsonl = "data/candidates.jsonl"
-    cand_path_csv = "data/candidates.csv"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    cand_path_jsonl = os.path.join(base_dir, "data", "candidates.jsonl")
+    cand_path_csv = os.path.join(base_dir, "data", "candidates.csv")
     cand_path = cand_path_jsonl if os.path.exists(cand_path_jsonl) else cand_path_csv
+    
+    if not os.path.exists(cand_path):
+        st.error(f"Could not find dataset at {cand_path_jsonl} or {cand_path_csv}. Please make sure you have placed your data files there.")
+        st.stop()
+        
     df = load_candidates(cand_path)
     
     retriever = CandidateRetriever()
@@ -48,7 +54,8 @@ if st.sidebar.checkbox("Show Candidate Database"):
     st.dataframe(df)
 
 st.header("1. Job Description")
-default_jd = open("data/job_description.txt").read() if os.path.exists("data/job_description.txt") else ""
+jd_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "job_description.txt")
+default_jd = open(jd_path).read() if os.path.exists(jd_path) else ""
 job_description = st.text_area("Paste the Job Description here:", value=default_jd, height=300)
 
 top_k = st.slider("Number of top candidates to retrieve (Stage 1):", min_value=1, max_value=len(df), value=3)
