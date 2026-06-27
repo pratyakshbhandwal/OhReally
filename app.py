@@ -8,26 +8,21 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 from data_loader import load_candidates, format_candidate_for_embedding
 from retriever import CandidateRetriever
-from ranker import LLMRanker
+from local_ranker import LocalRanker
 
 st.set_page_config(page_title="AI Recruiter Dashboard", page_icon="🕵️", layout="wide")
 
 st.title("🚀 RedrobAI Hack2Skill: Intelligent Candidate Ranking")
 st.markdown("""
-This system goes beyond keyword matching. It uses **Semantic Search (ChromaDB)** to find the most relevant candidates, and a **Generative LLM (Gemini)** to deeply analyze their true fit based on career history, skills, and behavioral signals.
+This is the sandbox environment for our offline AI Recruiter. It uses **Semantic Search (ChromaDB)** to find the most relevant candidates, and a **Local Heuristics Ranker** to deeply analyze their true fit based on career history, trap-detection, and behavioral signals.
 """)
-
-# Load API Key
-api_key = st.sidebar.text_input("Gemini API Key", type="password", placeholder="AIzaSy...")
-if api_key:
-    os.environ["GEMINI_API_KEY"] = api_key
 
 # Load Data
 @st.cache_resource
 def init_system():
     cand_path_jsonl = "data/candidates.jsonl"
-    cand_path_csv = "data/candidates.csv"
-    cand_path = cand_path_jsonl if os.path.exists(cand_path_jsonl) else cand_path_csv
+    cand_path_sample = "data/sample_candidates.json"
+    cand_path = cand_path_jsonl if os.path.exists(cand_path_jsonl) else cand_path_sample
     df = load_candidates(cand_path)
     
     retriever = CandidateRetriever()
@@ -56,18 +51,17 @@ top_k = st.slider("Number of top candidates to retrieve (Stage 1):", min_value=1
 if st.button("Analyze & Rank Candidates", type="primary"):
     if not job_description.strip():
         st.error("Please enter a job description.")
-    elif not os.getenv("GEMINI_API_KEY") and not api_key:
-        st.error("Please provide a Gemini API Key in the sidebar to run the LLM Ranker.")
     else:
         with st.spinner("🔍 Stage 1: Running Semantic Search to retrieve Top Candidates..."):
             results = retriever.search(job_description, top_k=top_k)
             
             # Fetch candidates from the dataframe based on retrieved IDs
             retrieved_ids = results['ids'][0] # ChromaDB returns strings
+            distances = results['distances'][0]
+            
             shortlist_df = df[df['id'].astype(str).isin(retrieved_ids)]
             
             st.subheader(f"✅ Top {top_k} Semantically Matched Candidates")
-            # Try to show preferred columns, fallback to whatever exists
             preferred_cols = ['name', 'current_role', 'skills', 'experience_years']
             display_cols = [col for col in preferred_cols if col in shortlist_df.columns]
             if not display_cols:
@@ -75,15 +69,38 @@ if st.button("Analyze & Rank Candidates", type="primary"):
                 
             st.dataframe(shortlist_df[display_cols])
             
-            # Convert to dict for LLM
+            # Convert to dict for Local Ranker
             shortlist_dicts = shortlist_df.to_dict('records')
+            dist_map = dict(zip(retrieved_ids, distances))
+            cand_distances = [dist_map.get(str(c.get('id', c.get('candidate_id'))), 1.0) for c in shortlist_dicts]
 
-        with st.spinner("🧠 Stage 2: LLM Analyzing Candidate Profiles deeply..."):
-            try:
-                ranker = LLMRanker()
-                report = ranker.rank_candidates(job_description, shortlist_dicts)
+        with st.spinner("🧠 Stage 2: Local AI Ranking and Trap Detection..."):
+            ranker = LocalRanker()
+            ranked_candidates = ranker.rank_candidates(shortlist_dicts, cand_distances, job_description)
+            
+            st.subheader("🏆 Final Output")
+            
+            output = []
+            prev_score = float('inf')
+            for i, c in enumerate(ranked_candidates):
+                raw_score = float(c.get('final_score', 0.0))
+                score = min(raw_score, prev_score)
+                prev_score = score
                 
-                st.subheader("🏆 Final Recruiter Report & Ranking")
-                st.markdown(report)
-            except Exception as e:
-                st.error(f"Error calling LLM API: {e}")
+                output.append({
+                    'candidate_id': c.get('candidate_id', c.get('id')),
+                    'rank': i + 1,
+                    'score': round(score, 4),
+                    'reasoning': c.get('reasoning', 'No reasoning generated.')
+                })
+                
+            sub_df = pd.DataFrame(output, columns=['candidate_id', 'rank', 'score', 'reasoning'])
+            st.dataframe(sub_df)
+            
+            csv = sub_df.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                label="📥 Download submission.csv",
+                data=csv,
+                file_name='submission.csv',
+                mime='text/csv',
+            )
