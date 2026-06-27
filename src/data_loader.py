@@ -11,6 +11,8 @@ def load_candidates(file_path: str) -> pd.DataFrame:
     """Loads candidates from a CSV or JSONL file."""
     if file_path.endswith('.jsonl'):
         df = pd.read_json(file_path, lines=True)
+    elif file_path.endswith('.json'):
+        df = pd.read_json(file_path)
     else:
         df = pd.read_csv(file_path)
         

@@ -1,31 +1,38 @@
-HOW TO RUN THE AI RECRUITER PROJECT
-===================================
+# AI Recruiter - Redrob Hackathon Submission
 
-Follow these step-by-step instructions to run the AI candidate ranking system on your Mac.
+This repository contains the offline AI ranking system designed for the Redrob Intelligent Candidate Discovery & Ranking Challenge.
 
+## 1. Reproducing the Submission (CLI)
 
-Copy and paste the following commands into your Terminal, one line at a time, and press Enter after each:
+To reproduce the exact `submission.csv` file from the candidate dataset (Stage 3 Verification), run the following single command from the root of the repository:
 
-1. Go into the project folder:
-   cd ~/Desktop/ai-recruiter
+```bash
+python generate_submission.py --candidates ./data/candidates.jsonl --out ./submission.csv
+```
 
-2. Create a Python Virtual Environment (to keep everything clean):
-   python3 -m venv venv
+### How it works
+This system uses a highly optimized, completely offline architecture to meet the strict 5-minute CPU constraint.
+1. **Semantic Search:** We embed the JD and use a local `all-MiniLM-L6-v2` Sentence Transformer via ChromaDB to instantly retrieve the top semantic matches.
+2. **Trap Detection:** The `src/trap_detector.py` module automatically identifies and drops honeypots, keyword stuffers, and completely unrelated titles (e.g. Civil Engineers with random AI keywords).
+3. **Behavioral Heuristics:** The `src/local_ranker.py` calculates a behavioral multiplier based on the `redrob_signals` to aggressively boost highly-responsive candidates and penalize unavailable ones.
 
-3. Activate the virtual environment:
-   source venv/bin/activate
+---
 
-4. Install all the required AI libraries (This might take a minute):
-   pip install -r requirements.txt
+## 2. Running the Sandbox App (Streamlit)
 
-5. Start the application:
-   streamlit run app.py
+We also built an interactive web application that fulfills the Sandbox requirement (Stage 1). You can run it locally with the following commands:
 
--------------------------
-After running the last command, a browser window will automatically open with your AI Recruiter Dashboard.
+```bash
+# 1. Create and activate a Python Virtual Environment
+python3 -m venv venv
+source venv/bin/activate
 
-IMPORTANT: GEMINI API KEY REQUIRED
-----------------------------------
-Since this uses Gemini to act as the AI Recruiter (Stage 2 ranking), you will need a Gemini API Key. 
-1. You can get one for free from: https://aistudio.google.com/app/apikey
-2. Once you have it, just paste it into the left sidebar of the Streamlit Dashboard where it says "Gemini API Key".
+# 2. Install all the required AI libraries
+pip install -r requirements.txt
+
+# 3. Start the application
+streamlit run app.py
+```
+
+A browser window will automatically open with your AI Recruiter Dashboard.
+Note: The Streamlit app also integrates with the Gemini API for advanced qualitative filtering, but the main `submission.csv` is generated entirely offline via `generate_submission.py` to adhere strictly to the compute and network constraints.

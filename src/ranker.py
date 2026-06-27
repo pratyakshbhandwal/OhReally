@@ -34,11 +34,13 @@ Do NOT just keyword match. Look at the full picture: career history, behavioral 
 ### Output Instructions:
 For each candidate, provide:
 1. **Name** (or ID if Name is missing) and **Current Role**
-2. **Fit Score (0-100)**: A realistic score on how well they fit the actual needs of the role.
-3. **Recruiter Notes**: A short, bulleted paragraph explaining *why* they fit or don't fit based on deep semantic understanding.
-4. **Recommendation**: "Strong Hire", "Hire", "Interview", "Pass".
+2. **Skill Match Score (0-100)**: How well their technical skills and experience match the role.
+3. **Behavioral Multiplier**: A brief analysis of their `redrob_signals` (e.g., `last_active_date`, `recruiter_response_rate`, `open_to_work_flag`, `github_activity_score`). Are they actually hireable and responsive?
+4. **Final Fit Score (0-100)**: The Skill Match Score heavily adjusted (up or down) by their Behavioral Multiplier. A perfect candidate who hasn't logged in recently or doesn't respond should have a very low score.
+5. **Recruiter Notes**: A short, bulleted paragraph explaining *why* they fit or don't fit based on deep semantic understanding of BOTH their skills and their behavioral data.
+6. **Recommendation**: "Strong Hire", "Hire", "Interview", "Pass".
 
-Rank the candidates from highest Fit Score to lowest.
+Rank the candidates from highest Final Fit Score to lowest.
 Format the output nicely using Markdown.
 """
         response = self.client.models.generate_content(

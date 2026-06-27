@@ -1,0 +1,27 @@
+team_name: "Your Team Name"
+primary_contact_name: "Prashant"
+primary_contact_email: "prashant@example.com"
+primary_contact_phone: "+1234567890"
+
+# Must be reachable by judges (Public or you must grant access)
+github_repository_url: "https://github.com/USERNAME/REPO"
+
+# A working hosted environment (e.g. Streamlit Cloud link where your app.py is hosted)
+sandbox_demo_link: "https://your-streamlit-app-url.streamlit.app"
+
+# Multi-select array. Be honest!
+ai_tools_declared:
+  - "Gemini"
+
+compute_environment_summary: "MacBook Pro, 16GB RAM, Python 3.13"
+
+team_member_list:
+  - name: "Prashant"
+    email: "prashant@example.com"
+
+methodology_summary: >
+  We utilized an offline two-stage Retrieve and Re-rank pipeline.
+  Stage 1: ChromaDB with all-MiniLM-L6-v2 embeddings for fast semantic matching.
+  Stage 2: A custom local Python ranker that evaluates the candidate's redrob_signals 
+  (response rate, github activity) to calculate a final pragmatic behavioral multiplier, 
+  combined with a honeypot detector to filter traps and keyword stuffers.
