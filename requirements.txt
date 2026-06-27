@@ -2,5 +2,3 @@ streamlit
 pandas
 chromadb
 sentence-transformers
-google-generativeai
-python-dotenv
