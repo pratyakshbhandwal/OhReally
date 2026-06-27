@@ -29,9 +29,15 @@ def init_system():
     cand_path_csv = "data/candidates.csv"
     cand_path = cand_path_jsonl if os.path.exists(cand_path_jsonl) else cand_path_csv
     df = load_candidates(cand_path)
-    texts = [format_candidate_for_embedding(row) for _, row in df.iterrows()]
+    
     retriever = CandidateRetriever()
-    retriever.index_candidates(df, texts)
+    
+    # Only index if the database is newly created (i.e., first run)
+    if retriever.is_new:
+        with st.spinner("⏳ First time setup: Generating embeddings for 100k candidates... This will take a while!"):
+            texts = [format_candidate_for_embedding(row) for _, row in df.iterrows()]
+            retriever.index_candidates(df, texts)
+            
     return df, retriever
 
 df, retriever = init_system()
