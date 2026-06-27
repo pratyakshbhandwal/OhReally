@@ -1,0 +1,27 @@
+Job Title: Senior AI Engineer
+Location: Remote
+Company: TechNova Solutions
+
+About the Role:
+We are looking for an experienced Senior AI Engineer who has a proven track record of designing, building, and deploying scalable Machine Learning and AI solutions. You will be responsible for creating intelligent systems that power our core products, particularly focusing on NLP, Semantic Search, and Generative AI applications. 
+
+What you will do:
+- Design and deploy RAG (Retrieval-Augmented Generation) architectures.
+- Work with vector databases like ChromaDB, FAISS, or Pinecone.
+- Fine-tune and prompt engineer Large Language Models (LLMs) such as GPT-4, Gemini, or Llama 3.
+- Write robust, production-ready Python code.
+- Collaborate with cross-functional teams to integrate AI models into scalable microservices.
+- Mentor junior engineers and lead architectural discussions.
+
+What we are looking for:
+- 5+ years of software engineering experience, with at least 3 years focused on AI/ML.
+- Strong proficiency in Python, PyTorch, and popular ML libraries.
+- Hands-on experience building systems with LLMs and LangChain/LlamaIndex.
+- Solid understanding of NLP concepts and semantic embeddings.
+- Experience with Cloud platforms (AWS/GCP) and containerization (Docker/Kubernetes).
+- A problem-solver who thinks beyond keyword matching and understands business value.
+- Excellent communication skills and ability to explain complex AI concepts to non-technical stakeholders.
+
+Bonus points:
+- Open-source contributions in the AI space.
+- Active GitHub/Kaggle profile showcasing relevant projects.

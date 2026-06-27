@@ -1,11 +1,6 @@
-pandas>=2.0.0
-numpy>=1.24.0
-tqdm>=4.65.0
-fastapi>=0.110.0
-uvicorn>=0.27.0
-streamlit>=1.32.0
-pydantic>=2.0.0
-
-# Optional: for semantic similarity layer (add if disk space allows)
-# sentence-transformers>=2.6.0
-# faiss-cpu>=1.7.4
+streamlit
+pandas
+chromadb
+sentence-transformers
+google-generativeai
+python-dotenv
