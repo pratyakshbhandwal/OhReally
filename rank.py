@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
-rank.py — Redrob Hackathon entry point
+rank.py — Upgraded entry point for Redrob Hackathon
 
 Usage:
     python rank.py --candidates ./candidates.jsonl --out ./team_xxx.csv
+    python rank.py --candidates ./candidates.jsonl --out ./team_xxx.csv --jd ./my_jd.txt
+    python rank.py --candidates ./candidates.jsonl --out ./team_xxx.csv --no-semantic
 
 Constraints met:
   - No network calls
-  - No GPU
+  - No GPU (sentence-transformers runs CPU-only)
   - <5 min on 16GB CPU
-  - Pure Python + pandas + numpy
+  - Graceful fallback if sentence-transformers not installed
 """
 
 import argparse
@@ -22,11 +24,11 @@ from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 
-from scorer import score_candidate, generate_reasoning
+import scorer as scorer_module
+from scorer import score_candidate, generate_reasoning, set_jd, _load_semantic_model, _sigmoid_normalize
 
 
 def load_candidates(path: str):
-    """Stream candidates from .jsonl or .jsonl.gz"""
     p = Path(path)
     if not p.exists():
         print(f"[ERROR] File not found: {path}")
@@ -51,7 +53,6 @@ def load_candidates(path: str):
 
 
 def rank_candidates(candidates: list, top_n: int = 100) -> list:
-    """Score all candidates, return top_n sorted by score desc."""
     print(f"[INFO] Scoring {len(candidates):,} candidates...")
     t0 = time.time()
 
@@ -59,10 +60,9 @@ def rank_candidates(candidates: list, top_n: int = 100) -> list:
     for c in tqdm(candidates, desc="Scoring", unit="cand", ncols=80):
         try:
             scored = score_candidate(c)
-            scored["_candidate"] = c  # keep reference for reasoning
+            scored["_candidate"] = c
             results.append(scored)
         except Exception as e:
-            # Never crash on a single bad record
             results.append({
                 "candidate_id": c.get("candidate_id", "UNKNOWN"),
                 "final_score": 0.0,
@@ -73,20 +73,27 @@ def rank_candidates(candidates: list, top_n: int = 100) -> list:
     elapsed = time.time() - t0
     print(f"[INFO] Scoring done in {elapsed:.1f}s")
 
-    # Sort by final_score desc, break ties by candidate_id asc (per spec)
-    results.sort(key=lambda x: (-x["final_score"], x["candidate_id"]))
+    # Apply sigmoid normalization across the full pool
+    print("[INFO] Normalizing score distribution...")
+    id_score_pairs = [(r["candidate_id"], r["final_score"]) for r in results]
+    normalized_pairs = _sigmoid_normalize(id_score_pairs)
+    score_map = dict(normalized_pairs)
+    for r in results:
+        r["final_score_normalized"] = score_map.get(r["candidate_id"], r["final_score"])
+
+    # Sort by normalized score
+    results.sort(key=lambda x: (-x["final_score_normalized"], x["candidate_id"]))
     return results[:top_n]
 
 
 def build_submission(top_candidates: list, out_path: str):
-    """Write submission.csv in required format."""
     rows = []
     for rank_idx, scored in enumerate(top_candidates, start=1):
         cand = scored.pop("_candidate")
         reasoning = generate_reasoning(cand, scored)
 
-        # Clamp score to [0, 1] and ensure non-increasing
-        score = round(min(max(scored["final_score"], 0.0), 1.0), 4)
+        # Use normalized score for submission
+        score = round(min(max(scored.get("final_score_normalized", scored["final_score"]), 0.0), 1.0), 4)
 
         rows.append({
             "candidate_id": scored["candidate_id"],
@@ -100,7 +107,6 @@ def build_submission(top_candidates: list, out_path: str):
         if rows[i]["score"] > rows[i - 1]["score"]:
             rows[i]["score"] = rows[i - 1]["score"]
 
-    # Write CSV
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["candidate_id", "rank", "score", "reasoning"])
@@ -110,32 +116,42 @@ def build_submission(top_candidates: list, out_path: str):
     print(f"[INFO] Submission written to: {out_path}")
     print(f"[INFO] Top 5 preview:")
     for r in rows[:5]:
-        print(f"  #{r['rank']:>3}  {r['candidate_id']}  score={r['score']:.4f}  {r['reasoning'][:80]}...")
+        print(f"  #{r['rank']:>3}  {r['candidate_id']}  score={r['score']:.4f}  {r['reasoning'][:90]}...")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Redrob Hackathon Candidate Ranker")
-    parser.add_argument(
-        "--candidates",
-        default="./candidates.jsonl",
-        help="Path to candidates.jsonl or candidates.jsonl.gz",
-    )
-    parser.add_argument(
-        "--out",
-        default="./team_xxx.csv",
-        help="Output CSV path (name it your team ID)",
-    )
-    parser.add_argument(
-        "--top",
-        type=int,
-        default=100,
-        help="How many candidates to output (default: 100)",
-    )
+    parser = argparse.ArgumentParser(description="Redrob Hackathon — Upgraded Candidate Ranker")
+    parser.add_argument("--candidates", default="./candidates.jsonl")
+    parser.add_argument("--out", default="./team_xxx.csv")
+    parser.add_argument("--top", type=int, default=100)
+    parser.add_argument("--jd", default=None, help="Path to a .txt file containing the job description")
+    parser.add_argument("--no-semantic", action="store_true", help="Skip semantic scoring (faster, less accurate)")
     args = parser.parse_args()
 
     print("=" * 60)
-    print("  Redrob Hackathon — Intelligent Candidate Ranker")
+    print("  Redrob Hackathon — Intelligent Candidate Ranker v2")
     print("=" * 60)
+
+    # Load custom JD if provided
+    if args.jd:
+        jd_path = Path(args.jd)
+        if jd_path.exists():
+            jd_text = jd_path.read_text(encoding="utf-8")
+            set_jd(jd_text)
+            print(f"[INFO] JD loaded from: {args.jd}")
+        else:
+            print(f"[WARN] JD file not found: {args.jd}. Using default JD.")
+
+    # Load semantic model (unless skipped)
+    if not args.no_semantic:
+        print("[INFO] Loading semantic model (all-MiniLM-L6-v2)...")
+        semantic_ok = _load_semantic_model()
+        if semantic_ok:
+            print("[INFO] Semantic scoring: ENABLED")
+        else:
+            print("[INFO] Semantic scoring: DISABLED (install sentence-transformers to enable)")
+    else:
+        print("[INFO] Semantic scoring: SKIPPED (--no-semantic flag)")
 
     t_start = time.time()
 

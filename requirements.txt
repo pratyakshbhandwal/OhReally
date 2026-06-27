@@ -1,11 +1,16 @@
+# Core pipeline
 pandas>=2.0.0
 numpy>=1.24.0
 tqdm>=4.65.0
+
+# Web interfaces
+streamlit>=1.32.0
 fastapi>=0.110.0
 uvicorn>=0.27.0
-streamlit>=1.32.0
 pydantic>=2.0.0
 
-# Optional: for semantic similarity layer (add if disk space allows)
-# sentence-transformers>=2.6.0
+# Semantic scoring (the key upgrade — CPU only, ~80MB model download on first run)
+sentence-transformers>=2.6.0
+
+# If you want faster batch encoding on large pools (optional but recommended)
 # faiss-cpu>=1.7.4
