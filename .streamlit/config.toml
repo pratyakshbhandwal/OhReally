@@ -1,2 +1,6 @@
 [server]
 maxUploadSize = 600
+
+[logger]
+level = "error"
+
