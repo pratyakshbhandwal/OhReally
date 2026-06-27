@@ -1,2 +1,101 @@
 candidate_id,rank,score,reasoning
-CAND_0000021,1,2.8597,Current title completely unrelated to engineering. Flagged as framework enthusiast without core ML depth.
+CAND_0068932,1,263.0718,Exceptional JD match: 5.2 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.82).
+CAND_0005649,2,260.7717,Exceptional JD match: 7.4 years as a Senior Data Scientist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.57).
+CAND_0076482,3,242.1219,Exceptional JD match: 6.6 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.86).
+CAND_0043860,4,233.9146,Exceptional JD match: 6.1 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.81).
+CAND_0048558,5,233.8713,Exceptional JD match: 6.7 years as a Data Scientist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.80).
+CAND_0037160,6,229.8617,Exceptional JD match: 6.0 years as a Data Scientist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.74).
+CAND_0073007,7,223.3802,Exceptional JD match: 5.8 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.83).
+CAND_0014063,8,222.4048,Exceptional JD match: 5.4 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.69).
+CAND_0024147,9,221.1787,Exceptional JD match: 5.9 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.84).
+CAND_0033179,10,215.6953,Exceptional JD match: 6.9 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.84).
+CAND_0098952,11,214.6778,Exceptional JD match: 5.5 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.66).
+CAND_0025882,12,214.6189,Exceptional JD match: 5.6 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.79).
+CAND_0049978,13,213.5439,Exceptional JD match: 6.6 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.71).
+CAND_0067866,14,213.0106,Exceptional JD match: 6.4 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.79).
+CAND_0001819,15,212.686,Exceptional JD match: 4.4 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.75).
+CAND_0018701,16,212.1688,Exceptional JD match: 6.0 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.71).
+CAND_0007052,17,211.8177,Exceptional JD match: 6.5 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.85).
+CAND_0004402,18,209.0222,Exceptional JD match: 6.0 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.83).
+CAND_0071205,19,208.4145,Exceptional JD match: 4.6 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.54).
+CAND_0040178,20,207.7157,Exceptional JD match: 5.0 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.55).
+CAND_0052335,21,206.7306,Exceptional JD match: 6.4 years as a Applied ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.79).
+CAND_0012837,22,205.4427,Exceptional JD match: 6.4 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.81).
+CAND_0002120,23,204.13,Exceptional JD match: 6.5 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.72).
+CAND_0010541,24,204.1039,Exceptional JD match: 6.2 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.59).
+CAND_0026942,25,203.7944,Exceptional JD match: 6.0 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.84).
+CAND_0090584,26,203.28,Exceptional JD match: 5.1 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.64).
+CAND_0043304,27,199.4729,Exceptional JD match: 6.5 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.75).
+CAND_0073883,28,197.9472,Exceptional JD match: 5.3 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.92).
+CAND_0006538,29,196.9622,Exceptional JD match: 5.7 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.86).
+CAND_0074731,30,195.5258,Exceptional JD match: 6.6 years as a Data Scientist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.58).
+CAND_0096104,31,194.74,Exceptional JD match: 7.0 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.33).
+CAND_0059795,32,191.8904,Exceptional JD match: 5.6 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.75).
+CAND_0044890,33,188.5544,Exceptional JD match: 5.0 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.79).
+CAND_0082086,34,188.1144,Exceptional JD match: 6.0 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.85).
+CAND_0024878,35,185.5043,Exceptional JD match: 5.7 years as a AI Specialist with explicit Vector DB or ranking evaluation experience.
+CAND_0018094,36,184.1055,Exceptional JD match: 5.2 years as a ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0008295,37,182.0224,Exceptional JD match: 6.5 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.89).
+CAND_0011327,38,180.3395,Exceptional JD match: 6.3 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0032089,39,179.1034,Exceptional JD match: 6.6 years as a ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0028422,40,176.9719,Exceptional JD match: 5.5 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0052706,41,175.0446,Exceptional JD match: 5.1 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0001930,42,174.5215,Exceptional JD match: 6.9 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience.
+CAND_0010603,43,172.0317,Exceptional JD match: 5.3 years as a ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0033987,44,171.1414,Exceptional JD match: 6.8 years as a ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0053591,45,170.1329,"Candidate is a AI Engineer with 5.3 yrs experience, but was penalized for framework wrapper skills without core ML depth. (Response rate: 0.81)"
+CAND_0091580,46,169.0856,Exceptional JD match: 5.5 years as a Data Scientist with explicit Vector DB or ranking evaluation experience.
+CAND_0028287,47,168.3892,Exceptional JD match: 5.7 years as a Data Scientist with explicit Vector DB or ranking evaluation experience.
+CAND_0057162,48,168.1368,Exceptional JD match: 4.2 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.54).
+CAND_0099751,49,165.5335,Exceptional JD match: 5.5 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0043637,50,165.0555,Exceptional JD match: 5.5 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.92).
+CAND_0040200,51,165.0022,Exceptional JD match: 5.5 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0070525,52,164.774,Exceptional JD match: 5.4 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.93).
+CAND_0008517,53,164.6079,Exceptional JD match: 5.6 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0032216,54,164.4749,Exceptional JD match: 6.1 years as a ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0028527,55,164.3568,Exceptional JD match: 5.4 years as a AI Specialist with explicit Vector DB or ranking evaluation experience.
+CAND_0096655,56,163.5322,Exceptional JD match: 5.9 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.80).
+CAND_0021410,57,163.4749,Exceptional JD match: 4.0 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.80).
+CAND_0077498,58,163.3763,Exceptional JD match: 5.4 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.89).
+CAND_0014683,59,162.953,Exceptional JD match: 5.6 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience.
+CAND_0068892,60,162.4288,Exceptional JD match: 4.7 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.51).
+CAND_0003791,61,162.2596,Exceptional JD match: 6.6 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.66).
+CAND_0098454,62,161.642,Exceptional JD match: 6.6 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.87).
+CAND_0015967,63,160.7285,Exceptional JD match: 5.4 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience.
+CAND_0042029,64,160.3378,Exceptional JD match: 6.5 years as a Senior Data Scientist with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.67).
+CAND_0047542,65,160.1302,Exceptional JD match: 5.0 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.75).
+CAND_0024990,66,159.8801,Exceptional JD match: 5.2 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.83).
+CAND_0035879,67,157.5005,Exceptional JD match: 4.5 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.82).
+CAND_0090300,68,157.4274,Exceptional JD match: 5.3 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0005269,69,157.2503,Exceptional JD match: 6.1 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.28).
+CAND_0054100,70,157.1666,Exceptional JD match: 6.0 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.79).
+CAND_0086154,71,156.3627,Exceptional JD match: 6.8 years as a Data Scientist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.90).
+CAND_0068393,72,155.9134,Exceptional JD match: 4.4 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0043676,73,155.5045,"Solid semantic alignment for a Senior Software Engineer (ML) bringing 6.1 years of experience and proficiency in ASR, QLoRA, scikit-learn. Logistics are highly favorable (Response rate: 0.65)."
+CAND_0076412,74,155.1726,Exceptional JD match: 5.8 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.54).
+CAND_0082262,75,153.3659,Exceptional JD match: 5.9 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.64).
+CAND_0092706,76,153.208,Exceptional JD match: 5.8 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.78).
+CAND_0090155,77,151.9907,Exceptional JD match: 5.8 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.64).
+CAND_0064130,78,151.6709,Exceptional JD match: 6.7 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.67).
+CAND_0094292,79,151.2959,Exceptional JD match: 6.5 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.53).
+CAND_0072020,80,151.0884,Exceptional JD match: 6.1 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.38).
+CAND_0049615,81,150.1283,Exceptional JD match: 5.1 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.28).
+CAND_0059017,82,149.9936,Exceptional JD match: 6.8 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.75).
+CAND_0001131,83,147.9766,Exceptional JD match: 5.8 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.58).
+CAND_0016659,84,147.1581,Exceptional JD match: 4.4 years as a ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0005311,85,146.2047,Exceptional JD match: 5.7 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience. Logistics are highly favorable (Response rate: 0.29).
+CAND_0091890,86,146.1589,Exceptional JD match: 4.7 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0024549,87,146.0759,"Solid semantic alignment for a AI Specialist bringing 5.2 years of experience and proficiency in LangChain, Computer Vision, Machine Learning. Logistics are highly favorable (Response rate: 0.85)."
+CAND_0043381,88,144.9027,"Solid semantic alignment for a AI Research Engineer bringing 3.6 years of experience and proficiency in scikit-learn, ETL, BM25. Logistics are highly favorable (Response rate: 0.78)."
+CAND_0051486,89,143.9922,Exceptional JD match: 5.9 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.60).
+CAND_0069771,90,143.9207,Exceptional JD match: 5.7 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.36).
+CAND_0002344,91,142.6477,Exceptional JD match: 4.7 years as a Senior Software Engineer (ML) with explicit Vector DB or ranking evaluation experience.
+CAND_0098780,92,142.4725,Exceptional JD match: 5.9 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0073620,93,142.4061,Exceptional JD match: 4.4 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0077261,94,142.3665,Exceptional JD match: 5.7 years as a AI Specialist with explicit Vector DB or ranking evaluation experience.
+CAND_0013111,95,142.0673,Exceptional JD match: 4.2 years as a AI Research Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0000200,96,141.5907,Exceptional JD match: 4.3 years as a ML Engineer with explicit Vector DB or ranking evaluation experience.
+CAND_0004131,97,141.3148,Exceptional JD match: 6.8 years as a Junior ML Engineer with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.47).
+CAND_0035315,98,140.8651,Exceptional JD match: 4.9 years as a Data Scientist with explicit Vector DB or ranking evaluation experience.
+CAND_0000165,99,140.3914,Exceptional JD match: 6.8 years as a AI Specialist with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.30).
+CAND_0046526,100,140.2626,Exceptional JD match: 5.5 years as a ML Engineer with explicit Vector DB or ranking evaluation experience. Engagement signals are slightly concerning (Response rate: 0.61).
