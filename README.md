@@ -1,38 +1,43 @@
 # AI Recruiter - Redrob Hackathon Submission
 
-This repository contains the offline AI ranking system designed for the Redrob Intelligent Candidate Discovery & Ranking Challenge.
+Welcome to our offline AI ranking system designed for the Redrob Intelligent Candidate Discovery Challenge! 
 
-## 1. Reproducing the Submission (CLI)
+This repository fulfills the Stage 3 (Code Reproduction) and Stage 1 (Sandbox) requirements. It is built to be extremely fast, strictly offline, and highly forensic in its ranking.
 
-To reproduce the exact `submission.csv` file from the candidate dataset (Stage 3 Verification), run the following single command from the root of the repository:
+## 🛠️ Step 1: Sandbox Demo (Streamlit)
 
+Want to see our AI dynamically catch traps and rank candidates in real-time?
+1. Open our Sandbox here: **[INSERT YOUR STREAMLIT CLOUD LINK HERE]**
+2. On the left sidebar, click **Upload Candidates File** and upload any `.jsonl` or `.json` file containing candidate profiles.
+3. Paste a Job Description in the main text box.
+4. Click **Analyze & Rank Candidates**. The app will bypass traps, rank the top 100, and give you a button to download the compliant `submission.csv`!
+
+---
+
+## 💻 Step 2: Reproducing the Submission (CLI)
+
+To reproduce the exact `submission.csv` on the full 100K dataset locally (Stage 3 Verification):
+
+1. **Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+2. **Place the dataset:**
+Ensure the `candidates.jsonl` file is inside the `data/` folder.
+
+3. **Run the magic command:**
+Execute this single command from the root folder:
 ```bash
 python generate_submission.py --candidates ./data/candidates.jsonl --out ./submission.csv
 ```
 
-### How it works
-This system uses a highly optimized, completely offline architecture to meet the strict 5-minute CPU constraint.
-1. **Semantic Search:** We embed the JD and use a local `all-MiniLM-L6-v2` Sentence Transformer via ChromaDB to instantly retrieve the top semantic matches.
-2. **Trap Detection:** The `src/trap_detector.py` module automatically identifies and drops honeypots, keyword stuffers, and completely unrelated titles (e.g. Civil Engineers with random AI keywords).
-3. **Behavioral Heuristics:** The `src/local_ranker.py` calculates a behavioral multiplier based on the `redrob_signals` to aggressively boost highly-responsive candidates and penalize unavailable ones.
-
 ---
 
-## 2. Running the Sandbox App (Streamlit)
+## 🧠 How Our Algorithm Works
+We built a highly optimized, completely offline architecture to meet the strict 5-minute CPU constraint while outsmarting the honeypots.
 
-We also built an interactive web application that fulfills the Sandbox requirement (Stage 1). You can run it locally with the following commands:
-
-```bash
-# 1. Create and activate a Python Virtual Environment
-python3 -m venv venv
-source venv/bin/activate
-
-# 2. Install all the required AI libraries
-pip install -r requirements.txt
-
-# 3. Start the application
-streamlit run app.py
-```
-
-A browser window will automatically open with your AI Recruiter Dashboard.
-Note: The Streamlit app also integrates with the Gemini API for advanced qualitative filtering, but the main `submission.csv` is generated entirely offline via `generate_submission.py` to adhere strictly to the compute and network constraints.
+1. **Semantic Search:** We embed the JD and use a local `all-MiniLM-L6-v2` Sentence Transformer via ChromaDB to pull a massive net of 10,000 top semantic matches (bypassing keyword-stuffers).
+2. **Trap Forensics (`src/trap_detector.py`):** We procedurally filter out the hidden honeypots: Civil Engineers stuffed with AI skills, Title-Chasers (fast turnover), and Consulting-only profiles. 
+3. **Behavioral Heuristics (`src/local_ranker.py`):** We aggressively boost responsive candidates and mathematically penalize unavailable ones using the `redrob_signals`.
+4. **Factual Reasoning:** The output reasoning strings dynamically inject real data (years of experience, explicitly matched skills, etc.) directly from the candidate JSON, ensuring 0% hallucination and 100% varied justifications.

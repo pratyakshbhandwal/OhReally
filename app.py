@@ -17,12 +17,8 @@ st.markdown("""
 This is the sandbox environment for our offline AI Recruiter. It uses **Semantic Search (ChromaDB)** to find the most relevant candidates, and a **Local Heuristics Ranker** to deeply analyze their true fit based on career history, trap-detection, and behavioral signals.
 """)
 
-# Load Data
 @st.cache_resource
-def init_system():
-    cand_path_jsonl = "data/candidates.jsonl"
-    cand_path_sample = "data/sample_candidates.json"
-    cand_path = cand_path_jsonl if os.path.exists(cand_path_jsonl) else cand_path_sample
+def init_system(cand_path):
     df = load_candidates(cand_path)
     
     retriever = CandidateRetriever()
@@ -35,7 +31,22 @@ def init_system():
             
     return df, retriever
 
-df, retriever = init_system()
+uploaded_file = st.sidebar.file_uploader("Upload Candidates File (JSONL)", type=["jsonl", "json", "csv"])
+if uploaded_file is not None:
+    import tempfile
+    with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file.name) as tmp:
+        tmp.write(uploaded_file.getvalue())
+        cand_path = tmp.name
+else:
+    cand_path_jsonl = "data/candidates.jsonl"
+    cand_path_sample = "data/sample_candidates.json"
+    cand_path = cand_path_jsonl if os.path.exists(cand_path_jsonl) else cand_path_sample
+
+try:
+    df, retriever = init_system(cand_path)
+except Exception as e:
+    st.error(f"Please upload a candidates file to begin. ({e})")
+    st.stop()
 
 st.sidebar.header("Data Overview")
 st.sidebar.info(f"Loaded {len(df)} candidate profiles.")
