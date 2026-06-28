@@ -21,11 +21,15 @@ This is the sandbox environment for our offline AI Recruiter. It uses **Semantic
 def init_system(cand_path):
     df = load_candidates(cand_path)
     
+    # PROTECT STREAMLIT CLOUD FROM MEMORY CRASHES
+    if len(df) > 1000:
+        df = df.head(1000)
+        
     retriever = CandidateRetriever()
     
     # Only index if the database is newly created (i.e., first run)
     if retriever.is_new:
-        with st.spinner("⏳ First time setup: Generating embeddings for 100k candidates... This will take a while!"):
+        with st.spinner(f"⏳ First time setup: Generating embeddings for {len(df)} candidates... This may take a minute!"):
             texts = [format_candidate_for_embedding(row) for _, row in df.iterrows()]
             retriever.index_candidates(df, texts)
             
@@ -50,6 +54,8 @@ if not cand_path:
 
 try:
     df, retriever = init_system(cand_path)
+    if len(df) == 1000:
+        st.warning("⚠️ **Massive File Uploaded:** Streamlit Cloud has a strict 1GB RAM limit. We have safely capped the Sandbox to process the first 1,000 candidates to prevent server crashes. Please run the CLI command to process the full 100K dataset.")
 except Exception as e:
     st.error(f"Error loading file: {e}")
     st.stop()
