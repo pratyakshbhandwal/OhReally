@@ -19,11 +19,9 @@ This is the sandbox environment for our offline AI Recruiter. It uses **Semantic
 
 @st.cache_resource
 def init_system(cand_path):
-    df = load_candidates(cand_path)
-    
     # PROTECT STREAMLIT CLOUD FROM MEMORY CRASHES
-    if len(df) > 1000:
-        df = df.head(1000)
+    # Pass limit=1000 to prevent Pandas from reading the entire 487MB file into RAM
+    df = load_candidates(cand_path, limit=1000)
         
     retriever = CandidateRetriever()
     

@@ -7,14 +7,21 @@ def load_job_description(file_path: str) -> str:
     with open(file_path, 'r') as file:
         return file.read()
 
-def load_candidates(file_path: str) -> pd.DataFrame:
+def load_candidates(file_path: str, limit: int = None) -> pd.DataFrame:
     """Loads candidates from a CSV or JSONL file."""
     if file_path.endswith('.jsonl'):
-        df = pd.read_json(file_path, lines=True)
+        if limit:
+            df = next(pd.read_json(file_path, lines=True, chunksize=limit))
+        else:
+            df = pd.read_json(file_path, lines=True)
     elif file_path.endswith('.json'):
         df = pd.read_json(file_path)
+        if limit:
+            df = df.head(limit)
     else:
         df = pd.read_csv(file_path)
+        if limit:
+            df = df.head(limit)
         
     # Ensure there is always an 'id' column for ChromaDB and Streamlit filtering
     if 'id' not in df.columns:
