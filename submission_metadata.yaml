@@ -1,23 +1,23 @@
-team_name: "Your Team Name"
-primary_contact_name: "Prashant"
-primary_contact_email: "prashant@example.com"
-primary_contact_phone: "+1234567890"
+team_name: "Prashant"
+primary_contact_name: "Prashant Saini"
+primary_contact_email: "parshantsaini360@gmail.com"
+primary_contact_phone: "+91-XXXXXXXXXX" # REPLACE THIS WITH YOUR REAL PHONE NUMBER
 
 # Must be reachable by judges (Public or you must grant access)
-github_repository_url: "https://github.com/USERNAME/REPO"
+github_repository_url: "https://github.com/Prxshnt6251/OhReallyAI-ranker"
 
 # A working hosted environment (e.g. Streamlit Cloud link where your app.py is hosted)
-sandbox_demo_link: "https://your-streamlit-app-url.streamlit.app"
+sandbox_demo_link: "https://<REPLACE_WITH_YOUR_STREAMLIT_APP_LINK>" # REPLACE THIS
 
 # Multi-select array. Be honest!
 ai_tools_declared:
-  - "Gemini"
+  - "Gemini Advanced / Antigravity"
 
-compute_environment_summary: "MacBook Pro, 16GB RAM, Python 3.13"
+compute_environment_summary: "MacBook Pro M-Series CPU, Python 3.13"
 
 team_member_list:
-  - name: "Prashant"
-    email: "prashant@example.com"
+  - name: "Prashant Saini"
+    email: "parshantsaini360@gmail.com"
 
 methodology_summary: >
   We utilized an offline two-stage Retrieve and Re-rank pipeline.
