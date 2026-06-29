@@ -1,27 +1,81 @@
-team_name: "Prashant"
-primary_contact_name: "Prashant Saini"
-primary_contact_email: "parshantsaini360@gmail.com"
-primary_contact_phone: "+91-XXXXXXXXXX" # REPLACE THIS WITH YOUR REAL PHONE NUMBER
+# Redrob Hackathon — Submission Metadata Template
+#
+# Copy this file to your repo root as `submission_metadata.yaml` and fill it in.
+# The fields here should match what you submit via the portal at upload time.
+# Stage 3 review uses this file to verify your portal metadata.
 
-# Must be reachable by judges (Public or you must grant access)
-github_repository_url: "https://github.com/Prxshnt6251/OhReallyAI-ranker"
+# ============================================================================
+# Team identity
+# ============================================================================
+team_name: "Prashant"  # Used in leaderboard and announcements
 
-# A working hosted environment (e.g. Streamlit Cloud link where your app.py is hosted)
-sandbox_demo_link: "https://<REPLACE_WITH_YOUR_STREAMLIT_APP_LINK>" # REPLACE THIS
+primary_contact:
+  name: "Prashant Saini"
+  email: "parshantsaini360@gmail.com"   # Used for all organizer communication
+  phone: "+91-XXXXXXXXXX"        # <--- REPLACE THIS WITH YOUR REAL PHONE NUMBER
 
-# Multi-select array. Be honest!
-ai_tools_declared:
-  - "Gemini Advanced / Antigravity"
-
-compute_environment_summary: "MacBook Pro M-Series CPU, Python 3.13"
-
-team_member_list:
+team_members:
   - name: "Prashant Saini"
     email: "parshantsaini360@gmail.com"
+    role: "ML Engineer"          # Optional, e.g. "Team Lead", "Backend", "Data"
 
-methodology_summary: >
-  We utilized an offline two-stage Retrieve and Re-rank pipeline.
-  Stage 1: ChromaDB with all-MiniLM-L6-v2 embeddings for fast semantic matching.
-  Stage 2: A custom local Python ranker that evaluates the candidate's redrob_signals 
-  (response rate, github activity) to calculate a final pragmatic behavioral multiplier, 
-  combined with a honeypot detector to filter traps and keyword stuffers.
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "https://github.com/Prxshnt6251/OhReallyAI-ranker"
+# Required. Must be reachable. Private repos OK if you can grant organizer
+# access at Stage 3 (the email to add will be communicated then).
+
+sandbox_link: "https://<REPLACE_WITH_YOUR_STREAMLIT_APP_LINK>" # <--- REPLACE THIS
+# Required. A working hosted environment where the ranker can be run on a small
+# candidate sample. See Section 10.5 of submission_spec.md for acceptable
+# platforms (HuggingFace Spaces, Streamlit Cloud, Replit, Colab, Docker, Binder).
+
+reproduce_command: "python generate_submission.py --candidates ./data/candidates.jsonl --out ./submission.csv"
+# The single command that produces submission.csv from candidates.jsonl.
+# Should run end-to-end within 5 minutes on CPU with 16GB RAM and no network.
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "MacBook Pro M-Series CPU"          # Or: "AWS EC2 c5.4xlarge", "Local Linux box", etc.
+  cpu_cores: 8                                  # Number of CPU cores used
+  ram_gb: 16                                    # Available RAM in GB
+  python_version: "3.13"                        # python --version
+  os: "macOS"                                   # Or "Ubuntu 22.04 LTS", etc.
+  uses_gpu_for_inference: false                 # Must be false — see compute constraints
+  has_network_during_ranking: false             # Must be false — no API calls during ranking
+  pre_computation_required: false               # true if you pre-compute embeddings or train models offline
+  pre_computation_time_minutes: 0               # Approximate, if applicable
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+# Transparency only — declared use is NOT penalized. Be honest. Stage 5 interview
+# may verify these declarations against your code; declarations that contradict
+# your code or your interview are flagged.
+ai_tools_used:
+  - "Antigravity"
+  - "Gemini Advanced"
+
+ai_usage_summary: |
+  Used Google Antigravity / Gemini Advanced for architectural planning, code generation (Trap Detector and Local Ranker logic), and Streamlit Sandbox UI design. No candidate data was fed to any LLM during the offline execution phase.
+
+# ============================================================================
+# Approach summary (optional but recommended)
+# ============================================================================
+methodology_summary: |
+  Offline two-stage Retrieve and Re-rank pipeline.
+  Stage 1 uses ChromaDB with all-MiniLM-L6-v2 embeddings for fast, semantic candidate retrieval, entirely bypassing basic keyword stuffing.
+  Stage 2 is a custom local ranker that extracts behavioral heuristics (redrob_signals like response rate, github activity) to calculate a pragmatic multiplier. This is combined with a proprietary trap-detector that mathematically penalizes impossible skill counts (honeypots) and title mismatches. Factual reasoning is procedurally generated without LLMs to eliminate hallucinations. Runtime is extremely fast on CPU.
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true        # I have read submission_spec.md in full
+  code_is_original_work: true       # My code is my team's original work (using AI as a tool is fine)
+  no_collusion: true                # I have not coordinated my submission with other teams
+  honeypot_check_done: true         # OPTIONAL — set true if you explicitly checked for honeypots in your ranking
+  reproduction_tested: true         # I have tested that my reproduce_command runs end-to-end
