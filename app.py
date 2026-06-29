@@ -39,7 +39,12 @@ cand_path = None
 if uploaded_file is not None:
     import tempfile
     with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file.name) as tmp:
-        tmp.write(uploaded_file.getvalue())
+        # Stream the file to disk in 1MB chunks to prevent memory spikes
+        while True:
+            chunk = uploaded_file.read(1024 * 1024)
+            if not chunk:
+                break
+            tmp.write(chunk)
         cand_path = tmp.name
 elif os.path.exists("data/candidates.jsonl"):
     cand_path = "data/candidates.jsonl"
