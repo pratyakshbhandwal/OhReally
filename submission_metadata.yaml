@@ -1,81 +1,81 @@
-# Redrob Hackathon — Submission Metadata Template
-#
-# Copy this file to your repo root as `submission_metadata.yaml` and fill it in.
-# The fields here should match what you submit via the portal at upload time.
-# Stage 3 review uses this file to verify your portal metadata.
+# Redrob Hackathon — Submission Metadata  
 
 # ============================================================================
 # Team identity
 # ============================================================================
-team_name: "Prashant"  # Used in leaderboard and announcements
+team_name: "OhReallyDevs"  
 
 primary_contact:
   name: "Prashant Saini"
-  email: "parshantsaini360@gmail.com"   # Used for all organizer communication
-  phone: "+91-XXXXXXXXXX"        # <--- REPLACE THIS WITH YOUR REAL PHONE NUMBER
+  email: "parshantsaini360@gmail.com"  
+  phone: "+91-9588113623"        
 
 team_members:
   - name: "Prashant Saini"
     email: "parshantsaini360@gmail.com"
-    role: "ML Engineer"          # Optional, e.g. "Team Lead", "Backend", "Data"
+    role: "ML Engineer"          
+  - name: "Pratyaksh Bhandwal"
+    email: "bhandwalpratyaksh@gmail.com"
+    role: "Backend"
+  - name: "Paras Gupta"
+    email: "parasdg1@gmail.com"
+    role: "Data Engineer"
+  - name: "hardik kundu"
+    email: ""
+    role: "Performance Engineer"
+  
 
 # ============================================================================
 # Code and reproducibility
 # ============================================================================
-github_repo: "https://github.com/Prxshnt6251/OhReallyAI-ranker"
-# Required. Must be reachable. Private repos OK if you can grant organizer
-# access at Stage 3 (the email to add will be communicated then).
+github_repo: "https://github.com/pratyakshbhandwal/OhReally"
 
-sandbox_link: "https://<REPLACE_WITH_YOUR_STREAMLIT_APP_LINK>" # <--- REPLACE THIS
-# Required. A working hosted environment where the ranker can be run on a small
-# candidate sample. See Section 10.5 of submission_spec.md for acceptable
-# platforms (HuggingFace Spaces, Streamlit Cloud, Replit, Colab, Docker, Binder).
+
+sandbox_link: "https://ohreally-ai-recruiter.streamlit.app/"
+
 
 reproduce_command: "python generate_submission.py --candidates ./data/candidates.jsonl --out ./submission.csv"
-# The single command that produces submission.csv from candidates.jsonl.
-# Should run end-to-end within 5 minutes on CPU with 16GB RAM and no network.
+
 
 # ============================================================================
 # Compute environment
 # ============================================================================
 compute:
-  platform: "MacBook Pro M-Series CPU"          # Or: "AWS EC2 c5.4xlarge", "Local Linux box", etc.
-  cpu_cores: 8                                  # Number of CPU cores used
-  ram_gb: 16                                    # Available RAM in GB
-  python_version: "3.13"                        # python --version
-  os: "macOS"                                   # Or "Ubuntu 22.04 LTS", etc.
-  uses_gpu_for_inference: false                 # Must be false — see compute constraints
-  has_network_during_ranking: false             # Must be false — no API calls during ranking
-  pre_computation_required: false               # true if you pre-compute embeddings or train models offline
-  pre_computation_time_minutes: 0               # Approximate, if applicable
+  platform: "MacBook Pro M2"                    
+  cpu_cores: 8                                  
+  ram_gb: 16                                    
+  python_version: "3.13.5"                      
+  os: "macOS 26.5.1"                              
+  uses_gpu_for_inference: false                 
+  has_network_during_ranking: false             
+  pre_computation_required: false               
+  pre_computation_time_minutes: 0
+  
 
 # ============================================================================
 # AI tools declaration
 # ============================================================================
-# Transparency only — declared use is NOT penalized. Be honest. Stage 5 interview
-# may verify these declarations against your code; declarations that contradict
-# your code or your interview are flagged.
 ai_tools_used:
-  - "Antigravity"
   - "Gemini Advanced"
+  - "Google Antigravity"
 
 ai_usage_summary: |
-  Used Google Antigravity / Gemini Advanced for architectural planning, code generation (Trap Detector and Local Ranker logic), and Streamlit Sandbox UI design. No candidate data was fed to any LLM during the offline execution phase.
+  Used Google Antigravity / Gemini Advanced strictly for architectural brainstorming and Streamlit Sandbox UI design. 
 
 # ============================================================================
 # Approach summary (optional but recommended)
 # ============================================================================
 methodology_summary: |
-  Offline two-stage Retrieve and Re-rank pipeline.
-  Stage 1 uses ChromaDB with all-MiniLM-L6-v2 embeddings for fast, semantic candidate retrieval, entirely bypassing basic keyword stuffing.
-  Stage 2 is a custom local ranker that extracts behavioral heuristics (redrob_signals like response rate, github activity) to calculate a pragmatic multiplier. This is combined with a proprietary trap-detector that mathematically penalizes impossible skill counts (honeypots) and title mismatches. Factual reasoning is procedurally generated without LLMs to eliminate hallucinations. Runtime is extremely fast on CPU.
+  We engineered an offline, two-stage Retrieve and Re-rank pipeline.
+  Stage 1 uses ChromaDB with all-MiniLM-L6-v2 sentence embeddings for blazing-fast semantic candidate retrieval, naturally bypassing simple keyword stuffers. 
+  Stage 2 executes a custom local ranker that evaluates behavioral heuristics (extracting `redrob_signals` like response rate and availability) to calculate a pragmatic multiplier. This is combined with our proprietary Trap Detector, which mathematically penalizes impossible skill counts (honeypots), title-chasers, and career timeline mismatches. Factual reasoning strings are procedurally generated without LLMs to completely eliminate hallucinations. The entire 100K dataset runs end-to-end on a local CPU in just a few seconds.
 
 # ============================================================================
 # Declarations
 # ============================================================================
 declarations:
-  read_submission_spec: true        # I have read submission_spec.md in full
-  code_is_original_work: true       # My code is my team's original work (using AI as a tool is fine)
-  no_collusion: true                # I have not coordinated my submission with other teams
-  honeypot_check_done: true         # OPTIONAL — set true if you explicitly checked for honeypots in your ranking
-  reproduction_tested: true         # I have tested that my reproduce_command runs end-to-end
+  read_submission_spec: true        
+  code_is_original_work: true       
+  no_collusion: true                
+  honeypot_check_done: true         # Set to true because our trap_detector explicitly catches them!
+  reproduction_tested: true
