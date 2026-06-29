@@ -49,6 +49,8 @@ Want to see our AI dynamically catch traps and rank candidates in real-time?
 3. **Input the Role:** Paste your target Job Description into the main text box.
 4. **Rank:** Click **Analyze & Rank Candidates** to watch the AI engine work! 
 
+> ⚠️ **Important Architecture Note:** To protect the Streamlit Cloud 1GB free-tier server from crashing (Out of Memory), the Sandbox web app is strictly hardcoded to stream and process **only the first 1,000 candidates** of any uploaded file. This adheres to the Hackathon Stage 1 rule to "accept a small candidate sample". To rank the entire 100,000 candidate dataset, please use the CLI script as described in Step 1.
+
 *(Note: You can also run the sandbox locally by executing `streamlit run app.py`)*
 
 ---
