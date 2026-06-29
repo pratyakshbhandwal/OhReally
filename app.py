@@ -66,7 +66,10 @@ except Exception as e:
 st.sidebar.header("Data Overview")
 st.sidebar.info(f"Loaded {len(df)} candidate profiles.")
 if st.sidebar.checkbox("Show Candidate Database"):
-    st.dataframe(df)
+    preview_df = df.copy()
+    if 'skills' in preview_df.columns:
+        preview_df['skills'] = preview_df['skills'].astype(str)
+    st.dataframe(preview_df)
 
 st.header("1. Job Description")
 default_jd = open("data/job_description.txt").read() if os.path.exists("data/job_description.txt") else ""
@@ -90,7 +93,12 @@ if st.button("Analyze & Rank Candidates", type="primary"):
             if not display_cols:
                 display_cols = [col for col in shortlist_df.columns if col != 'id'][:5] # Fallback to first 5 cols
                 
-            st.dataframe(shortlist_df[display_cols])
+            display_df = shortlist_df[display_cols].copy()
+            if 'skills' in display_df.columns:
+                display_df['skills'] = display_df['skills'].apply(
+                    lambda x: ", ".join([s.get('name', str(s)) if isinstance(s, dict) else str(s) for s in x]) if isinstance(x, list) else str(x)
+                )
+            st.dataframe(display_df)
             
             # Convert to dict for Local Ranker
             shortlist_dicts = shortlist_df.to_dict('records')
